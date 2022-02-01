@@ -12,5 +12,5 @@ dependencies {
 }
 
 application {
-    mainClass = 'src.main.java.CSCI2020U.lab02.SimpleTest'
+    mainClass = 'CSCI2020U.lab02.SimpleTest'
 }
