@@ -1,4 +1,4 @@
-package CSCI2020U.lab02; // package name corresponds to the directory structure
+package CSCI2020U.lab03; // package name corresponds to the directory structure
 
 public class SimpleTest {
     public static void main(String[] args) {

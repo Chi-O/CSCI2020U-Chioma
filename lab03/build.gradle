@@ -8,10 +8,22 @@ repositories {
 }
 
 dependencies {
+    // allows us to read csv files
     implementation 'org.apache.commons:commons-csv:1.8'
 }
 
 application {
     // location of main class
-    mainClass = 'CSCI2020U.lab02.SimpleTest'
+    mainClassName = 'CSCI2020U.lab03.CSVDemo'
+}
+
+version = 1.0
+
+// why did we do this? 
+jar {
+    manifest {
+        attributes  'Main-Class': mainClassName,
+                    'Implementation-Title': 'Lab03',
+                    'Implementation-Version': version
+    }
 }
