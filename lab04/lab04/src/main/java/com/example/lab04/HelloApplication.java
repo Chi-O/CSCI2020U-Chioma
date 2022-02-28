@@ -1,6 +1,8 @@
 package com.example.lab04;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -54,6 +56,14 @@ public class HelloApplication extends Application {
         // Register button
         // TODO add onCLick event handler to print the field values to the console
         Button registerBtn = new Button("Register");
+
+        registerBtn.setOnAction(event -> System.out.println("Username: " + userNameText.getText()
+                        + "\nPassword: " + pwBox.getText()
+                        + "\nFull name: " + fullNameText.getText()
+                        + "\nPhone #: " + phoneNum.getText()
+                        + "\nE-Mail: " + eMailText.getText()
+                        + "\nDate of Birth: " + dobDate.getValue()
+        ));
         
         // add the components to the grid
         grid.add(userName, 0, 0);
