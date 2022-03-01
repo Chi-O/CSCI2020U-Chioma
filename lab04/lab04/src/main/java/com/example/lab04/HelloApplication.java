@@ -12,8 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
+import java.util.function.UnaryOperator;
 
 public class HelloApplication extends Application {
     @Override
@@ -53,8 +55,43 @@ public class HelloApplication extends Application {
         Label dob = new Label("Date of Birth");
         DatePicker dobDate = new DatePicker();
 
+        // format phone number field
+/*        UnaryOperator<TextFormatter.Change> numberValidatorChecker = change -> {
+          String newText = change.getControlNewText();
+          if (newText.matches("-?([1-9][0-9]*)?")) {
+              return change;
+          } else {
+              change.setText(""); //else make no change
+              change.setRange(    //don't remove any selected text either.
+                    change.getRangeStart(),
+                    change.getRangeStart()
+              );
+          }
+          return change;
+        };*/
+
+        UnaryOperator<TextFormatter.Change> integerFilter = change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("-?([1-9][0-9]*)?")) {
+                return change;
+            } else if ("-".equals(change.getText()) ) {
+                if (change.getControlText().startsWith("-")) {
+                    change.setText("");
+                    change.setRange(0, 1);
+                    change.setCaretPosition(change.getCaretPosition()-2);
+                    change.setAnchor(change.getAnchor()-2);
+                    return change ;
+                } else {
+                    change.setRange(0, 0);
+                    return change ;
+                }
+            }
+            return null;
+        };
+
+        // phoneNum.setTextFormatter(new TextFormatter<Integer>(new IntegerStringConverter(), 0, integerFilter));
+
         // Register button
-        // TODO add onCLick event handler to print the field values to the console
         Button registerBtn = new Button("Register");
 
         registerBtn.setOnAction(event -> System.out.println("Username: " + userNameText.getText()
