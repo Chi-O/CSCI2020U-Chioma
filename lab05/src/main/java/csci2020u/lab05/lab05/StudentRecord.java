@@ -50,7 +50,23 @@ public class StudentRecord {
         return this.letterGrade;
     }
 
-/*    public static void main(String[] args) {
+    public String getStudentID() {
+        return this.studentID;
+    }
+
+    public float getAssignmentsGrade() {
+        return assignmentsGrade;
+    }
+
+    public float getExamGrade() {
+        return examGrade;
+    }
+
+    public float getMidtermGrade() {
+        return midtermGrade;
+    }
+
+    /*    public static void main(String[] args) {
 //        StudentRecord student = new StudentRecord("100100100", 75.0f, 68.0f, 54.25f);
         StudentRecord student = new StudentRecord("100100109", 82.5f, 77.0f, 74.25f);
 
