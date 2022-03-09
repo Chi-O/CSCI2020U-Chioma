@@ -1,14 +1,14 @@
 package lab06.lab06;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +19,7 @@ public class HelloApplication extends Application {
         // use FlowPane layout
         FlowPane root = new FlowPane();
 
+        // BAR CHART ----------------------------------------------------------------------------------------
         // data for bar chart
         double[] avgHousingPricesByYear = { 247381.0,264171.4,287715.3,294736.1, 308431.4,322635.9,340253.0,363153.7 };
         double[] avgCommercialPricesByYear = { 1121585.3,1219479.5,1246354.2,1295364.8, 1335932.6,1472362.0,1583521.9,1613246.3 };
@@ -53,7 +54,6 @@ public class HelloApplication extends Application {
             series2.getData().add(new XYChart.Data<String, Number>(year, avgCommercialPricesByYear[i - 1]));
         }
 
-
         // add series to bar chart
         bc.getData().addAll(series1, series2);
 
@@ -68,10 +68,33 @@ public class HelloApplication extends Application {
         bc.setLegendVisible(false);
 
         // add barchart to layout
-        root.getChildren().add(bc);
+        // root.getChildren().add(bc);
+
+        // PIE CHART ----------------------------------------------------------------------------------------
+        // data for pie chart
+        String[] ageGroups = { "18-25", "26-35", "36-45", "46-55", "56-65", "65+"};
+        int[] purchasesByAgeGroup = { 648, 1021, 2453, 3173, 1868, 2247};
+        Color[] pieColours = { Color.AQUA, Color.GOLD, Color.DARKORANGE, Color.DARKSALMON, Color.LAWNGREEN, Color.PLUM};
+
+        // add data to ObservableList
+        ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
+                new PieChart.Data("18-25", 648),
+                new PieChart.Data("26-35", 1021),
+                new PieChart.Data("36-45", 2453),
+                new PieChart.Data("46-55", 3173),
+                new PieChart.Data("56-65", 1868),
+                new PieChart.Data("65+", 2247)
+        );
+
+        // create new Pie Chart object
+        PieChart pc = new PieChart(pieData);
+        pc.setTitle("Purchases by Age Group");
+
+        // add pie chart to layout
+        root.getChildren().addAll(bc, pc);
 
         // create scene
-        Scene scene = new Scene(root, 550, 450);
+        Scene scene = new Scene(root, 1000, 450);
 
         stage.setTitle("Lab 6 - 2D Graphics!");
         stage.setScene(scene);
