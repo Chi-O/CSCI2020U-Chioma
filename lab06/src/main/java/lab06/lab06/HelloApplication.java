@@ -68,7 +68,7 @@ public class HelloApplication extends Application {
         bc.setLegendVisible(false);
 
         // add barchart to layout
-        // root.getChildren().add(bc);
+        root.getChildren().add(bc);
 
         // PIE CHART ----------------------------------------------------------------------------------------
         // data for pie chart
@@ -91,7 +91,7 @@ public class HelloApplication extends Application {
         pc.setTitle("Purchases by Age Group");
 
         // add pie chart to layout
-        root.getChildren().addAll(bc, pc);
+        root.getChildren().add(pc);
 
         // create scene
         Scene scene = new Scene(root, 1000, 450);
