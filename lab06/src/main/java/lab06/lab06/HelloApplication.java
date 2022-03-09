@@ -75,7 +75,7 @@ public class HelloApplication extends Application {
         String[] ageGroups = { "18-25", "26-35", "36-45", "46-55", "56-65", "65+"};
         int[] purchasesByAgeGroup = { 648, 1021, 2453, 3173, 1868, 2247};
         Color[] pieColours = { Color.AQUA, Color.GOLD, Color.DARKORANGE, Color.DARKSALMON, Color.LAWNGREEN, Color.PLUM};
-
+        String[] pieColors = {"#00ffff", "#ffd700", "#ff8c00", "#e9967a", "#7cfc00", "#DDA0DD"};
         // add data to ObservableList
         ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
                 new PieChart.Data("18-25", 648),
@@ -90,13 +90,21 @@ public class HelloApplication extends Application {
         PieChart pc = new PieChart(pieData);
         pc.setTitle("Purchases by Age Group");
 
+        // change pie chart colors
+        for (int j = 0; j < 6; j++) {
+            pieData.get(j).getNode().setStyle("-fx-pie-color: " + pieColors[j]);
+        }
+        pc.setClockwise(false);
+
+        pc.setLegendVisible(false);
+
         // add pie chart to layout
         root.getChildren().add(pc);
 
         // create scene
         Scene scene = new Scene(root, 1000, 450);
 
-        stage.setTitle("Lab 6 - 2D Graphics!");
+        stage.setTitle("C Lab 6 - 2D Graphics");
         stage.setScene(scene);
         stage.show();
     }
