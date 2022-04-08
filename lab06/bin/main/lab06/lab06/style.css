@@ -1,0 +1,6 @@
+.data0.chart-bar {
+    -fx-bar-fill: red;
+}
+.data1.chart-bar {
+    -fx-bar-fill: #0055ff;
+}
