@@ -14,8 +14,10 @@ public class Server {
             serve = new ServerSocket(port);
             System.out.println("Starting Server...");
             System.out.println("Waiting for client connection...");
+
             sock = serve.accept();
             System.out.println("Connected to Client...");
+            
             inStream = new DataInputStream(sock.getInputStream());
 
             //holds message sent by client

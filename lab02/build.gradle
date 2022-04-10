@@ -13,5 +13,5 @@ dependencies {
 
 application {
     // location of main class
-    mainClass = 'CSCI2020U.lab02.SimpleTest'
+    mainClass = 'CSCI2020U.lab02.CSVDemo'
 }
