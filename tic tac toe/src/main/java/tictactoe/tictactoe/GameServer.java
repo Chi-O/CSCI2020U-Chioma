@@ -14,9 +14,9 @@ public class GameServer {
         System.out.println("----- Game Server ------");
         numPlayers = 0; // initialize num players to zero
         try {
-            serverSocket = new ServerSocket(12345);
+            serverSocket = new ServerSocket(55555);
         } catch (IOException ex) {
-            System.out.println("GameServer constructor");
+            System.out.println("Exception from GameServer constructor");
             ex.printStackTrace();
         }
     }

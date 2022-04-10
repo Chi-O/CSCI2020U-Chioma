@@ -13,7 +13,7 @@ public class Server {
         Socket clientSocket = null;
         BufferedReader inStream = null;
 
-        // constructor to identity this incoming request
+        // constructor to identify this incoming request
         public ClientHandler(Socket socket) {
             this.clientSocket = socket;
         }
