@@ -19,6 +19,7 @@ import java.net.UnknownHostException;
 
 public class Client extends Application {
     private ClientSideConnection csc;
+    private int myClientID;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -46,6 +47,22 @@ public class Client extends Application {
         // exit button
         Button exitBtn = new Button("Exit");
 
+        // EVENT HANDLER FOR SEND BUTTON
+        sendBtn.setOnAction(event -> {
+            try {
+                sendToServer(userNameText.getText(), msgText.getText());
+            } catch (IOException e) {
+                System.out.println("From send button event handler.");
+                e.printStackTrace();
+            }
+        });
+
+        // EVENT HANDLER FOR EXIT BUTTON
+        exitBtn.setOnAction(event -> {
+            // close connection and streams
+            closeConnection();
+        });
+
         // add the components to the grid
         grid.add(userName, 0, 0);
         grid.add(userNameText, 1, 0);
@@ -59,12 +76,34 @@ public class Client extends Application {
 
         // create a Scene node and add the GridPane grid node to the scene
         Scene scene = new Scene(grid, 320, 240);
-        stage.setTitle("Simple Client v1.0");
+        stage.setTitle("Simple Client #" + myClientID);
         stage.setScene(scene);
         stage.show();
     }
-    public void connectToServer() {
+
+    private void connectToServer() {
         csc = new ClientSideConnection();
+    }
+
+    private void sendToServer(String userName, String message) throws IOException {
+        try {
+            csc.dos.writeUTF(userName + ": " + message);
+        } catch (IOException ex) {
+            System.out.println("Thrown from sendToServer()");
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void closeConnection() {
+        try {
+            // close connection and streams
+            csc.dos.flush();
+            csc.dis.close();
+            csc.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // inner class to encapsulate instructions to allow player communicate with the GameServer
@@ -81,9 +120,9 @@ public class Client extends Application {
                 dis = new DataInputStream(socket.getInputStream());
                 dos = new DataOutputStream(socket.getOutputStream());
 
-//                // read the playerID of this player; sent from the GameServer
-//                myPlayerID = dis.readInt();
-//                System.out.println("Connected to server as player #" + myPlayerID);
+                // read the playerID of this player; sent from the GameServer
+                myClientID = dis.readInt();
+                System.out.println("Connected to server as player #" + myClientID);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {

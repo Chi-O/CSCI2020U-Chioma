@@ -29,6 +29,6 @@ public class Client {
             e.printStackTrace();
         }
         // PrintWriter auto flush is turned on so the output stream terminates
-        System.out.println("Connection termincated...");
+        System.out.println("Connection terminated...");
     }
 }
