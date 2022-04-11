@@ -11,11 +11,19 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Client extends Application {
+    private ClientSideConnection csc;
+
     @Override
     public void start(Stage stage) throws IOException {
+        connectToServer();
+
         // create a GridPane layout
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);      // align its center
@@ -54,6 +62,35 @@ public class Client extends Application {
         stage.setTitle("Simple Client v1.0");
         stage.setScene(scene);
         stage.show();
+    }
+    public void connectToServer() {
+        csc = new ClientSideConnection();
+    }
+
+    // inner class to encapsulate instructions to allow player communicate with the GameServer
+    private class ClientSideConnection {
+        private Socket socket = null;
+        private DataInputStream dis = null;
+        private DataOutputStream dos = null;
+
+        // constructor
+        public ClientSideConnection() {
+            System.out.println("----- Client -----");
+            try {
+                socket = new Socket("localhost", 11111);
+                dis = new DataInputStream(socket.getInputStream());
+                dos = new DataOutputStream(socket.getOutputStream());
+
+//                // read the playerID of this player; sent from the GameServer
+//                myPlayerID = dis.readInt();
+//                System.out.println("Connected to server as player #" + myPlayerID);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("From CSC constructor");
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args) {
